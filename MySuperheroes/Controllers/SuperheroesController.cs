@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using MySuperheroes.Data;
 using MySuperheroes.Models;
@@ -12,7 +13,7 @@ namespace MySuperheroes.Controllers
 {
     public class SuperheroesController : Controller
     {
-        private ApplicationDbContext _db; // create instance of communicator
+        private readonly ApplicationDbContext _db; // create instance of communicator
         public SuperheroesController(ApplicationDbContext db)
         {
             _db = db;
@@ -20,8 +21,8 @@ namespace MySuperheroes.Controllers
         // GET: SuperheroesController
         public ActionResult Index()
         {
-            // _db.Superheroes.Where
-            return View();
+            var superheroes = _db.Superheroes.Select(s => s).ToList();
+            return View(superheroes);
         }
 
         // GET: SuperheroesController/Details/5
