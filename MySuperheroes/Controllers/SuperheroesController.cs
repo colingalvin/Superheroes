@@ -21,14 +21,15 @@ namespace MySuperheroes.Controllers
         // GET: SuperheroesController
         public ActionResult Index()
         {
-            var superheroes = _db.Superheroes.Select(s => s).ToList();
-            return View(superheroes);
+            var supers = _db.Superheroes.Select(s => s).ToList();
+            return View(supers);
         }
 
         // GET: SuperheroesController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var selectedSuper = _db.Superheroes.SingleOrDefault(s => s.Id == id);
+            return View(selectedSuper);
         }
 
         // GET: SuperheroesController/Create
