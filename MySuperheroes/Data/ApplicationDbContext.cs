@@ -7,12 +7,14 @@ using MySuperheroes.Models;
 
 namespace MySuperheroes.Data
 {
+    // representation of database within app
     public class ApplicationDbContext : IdentityDbContext
     {
+        // table respresentation in database
+        public DbSet<Superhero> Superheroes { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
         }
-        public DbSet<Superhero> Superheroes { get; set; }
     }
 }

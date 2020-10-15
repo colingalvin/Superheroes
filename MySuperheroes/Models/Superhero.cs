@@ -10,6 +10,7 @@ namespace MySuperheroes.Models
     {
         [Key]
         public int Id { get; set; }
+        [Display(Name = "Superhero Name")]  // Changes how name appears on website
         public string SuperName { get; set; }
         public string AlterEgo { get; set; }
         public string PrimaryAbility { get; set; }
