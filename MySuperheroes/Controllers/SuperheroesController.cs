@@ -28,7 +28,7 @@ namespace MySuperheroes.Controllers
         // GET: SuperheroesController/Details/5
         public ActionResult Details(int id)
         {
-            var selectedSuper = _db.Superheroes.SingleOrDefault(s => s.Id == id);
+            var selectedSuper = _db.Superheroes.FirstOrDefault(s => s.Id == id);
             return View(selectedSuper);
         }
 
@@ -96,6 +96,8 @@ namespace MySuperheroes.Controllers
         {
             try
             {
+                _db.Superheroes.Remove(superhero);
+                _db.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch
