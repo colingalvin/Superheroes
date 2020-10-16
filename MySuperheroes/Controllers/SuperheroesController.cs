@@ -21,15 +21,13 @@ namespace MySuperheroes.Controllers
         // GET: SuperheroesController
         public ActionResult Index()
         {
-            var supers = _db.Superheroes.Select(s => s).ToList();
-            return View(supers);
+            return View(_db.Superheroes.Select(s => s).ToList());
         }
 
         // GET: SuperheroesController/Details/5
         public ActionResult Details(int id)
         {
-            var selectedSuper = _db.Superheroes.FirstOrDefault(s => s.Id == id);
-            return View(selectedSuper);
+            return View(_db.Superheroes.FirstOrDefault(s => s.Id == id));
         }
 
         // GET: SuperheroesController/Create
@@ -65,7 +63,7 @@ namespace MySuperheroes.Controllers
         // GET: SuperheroesController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            return View(_db.Superheroes.FirstOrDefault(s => s.Id == id));
         }
 
         // POST: SuperheroesController/Edit/5
@@ -75,6 +73,9 @@ namespace MySuperheroes.Controllers
         {
             try
             {
+                _db.Superheroes.Remove(_db.Superheroes.FirstOrDefault(s => s.Id == id));
+                _db.Superheroes.Add(superhero);
+                _db.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch
