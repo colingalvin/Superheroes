@@ -21,7 +21,7 @@ namespace MySuperheroes.Controllers
         // GET: SuperheroesController
         public ActionResult Index()
         {
-            return View(_db.Superheroes.Select(s => s).ToList());
+            return View(_db.Superheroes.ToList());
         }
 
         // GET: SuperheroesController/Details/5
@@ -43,16 +43,9 @@ namespace MySuperheroes.Controllers
         {
             try
             {
-                _db.Superheroes.Add(superhero); // take instance from View, add to the superhero table in database
+                _db.Superheroes.Add(superhero);
                 _db.SaveChanges();
-
-                // Same as:
-                //Superhero superhero1 = new Superhero();
-                //superhero1.SuperName = "Frozone";
-                //...
-                //_db.Superheroes.Add(superhero1);
-
-                return RedirectToAction(nameof(Index)); // Action = Method
+                return RedirectToAction(nameof(Index));
             }
             catch
             {
@@ -70,11 +63,11 @@ namespace MySuperheroes.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, Superhero superhero)
-        {
+        { 
+            
             try
             {
-                _db.Superheroes.Remove(_db.Superheroes.FirstOrDefault(s => s.Id == id));
-                _db.Superheroes.Add(superhero);
+                _db.Superheroes.Update(superhero);
                 _db.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
